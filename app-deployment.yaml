@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: capsule-app
+  namespace: noel-ns
 spec:
   replicas: 2
   selector:
@@ -53,10 +54,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: capsule-service
+  namespace: noel-ns
 spec:
   selector:
     app: capsule-app
   ports:
-  - port: 80
+  - port: 82
     targetPort: 3000
-  type: LoadBalancer
+  type: NodePort
