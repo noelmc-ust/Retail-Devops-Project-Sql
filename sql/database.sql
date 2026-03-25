@@ -46,5 +46,5 @@ CREATE TABLE inventory_logs (
 -- Insert default admin user (password: admin123)
 INSERT INTO users (username, email, password, role) VALUES 
 ('admin', 'admin@retaildashboard.com', 'admin123', 'admin');
-
+('noel','noel@gamil.com','noel123','user')
 select * from inventory
