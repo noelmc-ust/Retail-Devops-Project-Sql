@@ -23,13 +23,13 @@ stringData:
   DB_USER: root
   DB_PASSWORD: rootpassword
   DB_NAME: capsule_db
-  DB_PORT: 3306
-  PORT: 3000
+  DB_PORT: "3306"
+  PORT: "3000"
   NODE_ENV: production
   SESSION_SECRET: capsule-k8s-secret-change-in-production
-  SESSION_MAX_AGE: 1800000
-  LOW_STOCK_THRESHOLD: 5
-  HIGH_STOCK_THRESHOLD: 15
+  SESSION_MAX_AGE: "1800000"
+  LOW_STOCK_THRESHOLD: "5"
+  HIGH_STOCK_THRESHOLD: "15"
   EMAIL_SERVICE: gmail
   EMAIL_USER: your-email@gmail.com
   EMAIL_PASS: your-gmail-app-password
@@ -62,81 +62,81 @@ spec:
         - name: retail-container
           image: vasuvarshney07/vasu_varshney_fordocker-app:latest
           ports:
-            containerPort: 3000
+            - containerPort: 3000
           env:
             - name: DB_HOST
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: DB_HOST
             - name: DB_USER
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: DB_PASSWORD
             - name: DB_NAME
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: DB_NAME
             - name: PORT
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: PORT
             - name: DB_PORT
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: DB_PORT
             - name: NODE_ENV
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: NODE_ENV
             - name: SESSION_SECRET
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: SESSION_SECRET
             - name: SESSION_MAX_AGE
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: SESSION_MAX_AGE
             - name: LOW_STOCK_THRESHOLD
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: LOW_STOCK_THRESHOLD
             - name: HIGH_STOCK_THRESHOLD
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: HIGH_STOCK_THRESHOLD
             - name: EMAIL_SERVICE
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: EMAIL_SERVICE
             - name: EMAIL_USER
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: EMAIL_USER
             - name: EMAIL_PASS
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: EMAIL_PASS
             - name: SUPPORT_EMAIL
               valueFrom:
-                secretMapKeyRef:
+                secretKeyRef:
                   name: retail-secret
                   key: SUPPORT_EMAIL
           resources:
