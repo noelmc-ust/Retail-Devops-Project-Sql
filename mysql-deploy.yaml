@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: mysql-secret
-data:
+stringData:
   MYSQL_ROOT_PASSWORD: rootpassword
   MYSQL_DATABASE: capsule_db
   MYSQL_USER: capsule_user
@@ -19,7 +19,7 @@ metadata:
   labels:
     app: mysql
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mysql
@@ -49,22 +49,22 @@ spec:
             - name: MYSQL_DATABASE
               valueFrom:
                 secretMapKeyRef:
-                  name: retail-secret
+                  name: mysql-secret
                   key: MYSQL_DATABASE
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretMapKeyRef:
-                  name: retail-secret
+                  name: mysql-secret
                   key: MYSQL_PASSWORD
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretMapKeyRef:
-                  name: retail-secret
+                  name: mysql-secret
                   key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_USER
               valueFrom:
                 secretMapKeyRef:
-                  name: retail-secret
+                  name: mysql-secret
                   key: MYSQL_USER
   
 ---

@@ -5,7 +5,7 @@ metadata:
   namespace: retail-ns
 spec:
   scaleTargetRef:
-    apiVersion: v1
+    apiVersion: apps/v1
     kind: Deployment
     name: retail-deploy
   minReplicas: 4
