@@ -161,7 +161,3 @@ spec:
     - port: 82
       targetPort: 3000
   type: NodePort
-
----
-
-apiVersion:
