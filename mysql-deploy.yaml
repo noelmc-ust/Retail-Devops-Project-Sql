@@ -37,7 +37,7 @@ spec:
       volumes:
         - name: mysql-data
           persistentVolumeClaim:
-            claimName: mysql-pvc
+            claimName: mysql-retail-pvc
       containers:
         - name: mysql
           image: mysql:8.0
