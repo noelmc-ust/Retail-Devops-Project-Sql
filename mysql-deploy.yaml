@@ -38,6 +38,9 @@ spec:
         - name: mysql-data
           persistentVolumeClaim:
             claimName: mysql-retail-pvc
+        - name: mysql-init-scripts
+          configMap:
+            name: mysql-init-config
       containers:
         - name: mysql
           image: mysql:8.0
@@ -46,6 +49,8 @@ spec:
           volumeMounts:
             - name: mysql-data
               mountPath: /var/lib/mysql
+            - name: mysql-init-scripts
+              mountPath: /docker-entrypoint-initdb.d
           env:
             - name: MYSQL_DATABASE
               valueFrom:
