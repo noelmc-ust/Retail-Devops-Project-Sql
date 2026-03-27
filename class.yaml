@@ -5,6 +5,6 @@ metadata:
 provisioner: nfs.csi.k8s.io
 parameters:
   server: 10.0.1.27
-  path: /var/nfs/general/retail
+  share: /var/nfs/general/retail
   readOnly: "false"
  
