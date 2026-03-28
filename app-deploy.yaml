@@ -42,12 +42,10 @@ stringData:
   MYSQL_PASSWORD: secure_password_123
 
 ---
-
----
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: mysql-deploy
+  name: mysql-state
   namespace: retail-ns
   labels:
     app: mysql
@@ -56,20 +54,27 @@ spec:
   selector:
     matchLabels:
       app: mysql
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
+  volumeClaimTemplates:
+    - metadata: 
+        name: mysql-retail-vct
+      spec:
+        accessModes: [ReadWriteMany]
+        storageClassName: nfs-csi-retail
+        resources:
+          requests:
+            storage: 5Gi
+  # strategy:
+  #   type: RollingUpdate
+  #   rollingUpdate:
+  #     maxUnavailable: 1
+  #     maxSurge: 1
   template:
     metadata:
       labels:
         app: mysql
     spec:
+      terminationGracePeriodSeconds: 10
       volumes:
-        - name: mysql-data
-          persistentVolumeClaim:
-            claimName: mysql-retail-pvc
         - name: mysql-init-scripts
           configMap:
             name: mysql-init-config
@@ -79,10 +84,10 @@ spec:
           ports:
             - containerPort: 3306
           volumeMounts:
-            - name: mysql-data
+            - name: mysql-retail-vct
               mountPath: /var/lib/mysql
-            - name: mysql-init-scripts
-              mountPath: /docker-entrypoint-initdb.d
+            # - name: mysql-init-scripts
+            #   mountPath: /docker-entrypoint-initdb.d
           env:
             - name: MYSQL_DATABASE
               valueFrom:
@@ -115,28 +120,14 @@ metadata:
 spec:
   selector:
     app: mysql
+  clusterIP: None
   ports:
   - port: 3306
     targetPort: 3306
-  type: ClusterIP
-
+  
 
 ---
 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-retail-pvc
-  namespace: retail-ns
-spec:
-  resources:
-    requests:
-      storage: 5Gi
-  accessModes:
-    - ReadWriteMany
-  storageClassName: nfs-csi-retail
- 
----
 
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
