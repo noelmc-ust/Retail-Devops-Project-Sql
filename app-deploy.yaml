@@ -24,6 +24,7 @@ provisioner: nfs.csi.k8s.io
 parameters:
   server: 10.0.1.27
   share: /var/nfs/general/retail
+  subDir: ${pvc.metadata.name}
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
  
