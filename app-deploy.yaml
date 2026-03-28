@@ -50,7 +50,7 @@ metadata:
   labels:
     app: mysql
 spec:
-  replicas: 3
+  replicas: 1
   serviceName: mysql-service 
   selector:
     matchLabels:
